@@ -16,12 +16,15 @@ export class ContactForm extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     this.props.onSubmit({ name: this.state.name, number: this.state.number });
+
     this.setState({ name: '', number: '' });
   };
 
   render() {
+    // console.log('NAME', this.state.name);
+    // console.log('NUMBER', this.state.number);
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <label htmlFor="name">
           Name
           <input
@@ -34,6 +37,7 @@ export class ContactForm extends Component {
             value={this.state.name}
           />
         </label>
+
         <label htmlFor="number">
           Number
           <input

@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
-
+import { Filter } from './Filter/Filter';
+// import { ContactList } from './ContactList/Contactlist';
 export class App extends Component {
   state = {
     contacts: [
@@ -11,8 +12,6 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   addContact = ({ name, number }) => {
@@ -23,7 +22,24 @@ export class App extends Component {
       : this.setState(prevState => {
           return { contacts: [...prevState.contacts, contact] };
         });
-    console.log('App ~ contact:', contact);
+  };
+
+  getFilteredContacts = () => {
+    const { contacts, filter } = this.state;
+    const filterToLowerCase = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterToLowerCase)
+    );
+  };
+
+  changeFilter = evt => {
+    this.setState({ filter: evt.currentTarget.value });
+  };
+
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
   };
 
   render() {
@@ -32,18 +48,16 @@ export class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
-        {/* <Filter /> */}
+        {/* <Filter value={this.filter} onChange={this.changeFilter} /> */}
+
         <label>
           Find contacts by name
-          <input type="text" />
+          <input type="text" value={this.filter} onChange={this.onChange} />
         </label>
-        {/* <ContactList /> */}
-        <ul>
-          <li>
-            <p></p>
-          </li>
-        </ul>
-        <button>Delete</button>
+        {/* <ContactList
+          contacts={this.getFilteredContacts}
+          onDeleteContact={this.deleteContact}
+        /> */}
       </div>
     );
   }
