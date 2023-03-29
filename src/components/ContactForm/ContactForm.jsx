@@ -1,4 +1,10 @@
 import { Component } from 'react';
+import {
+  AddContactButton,
+  ContactFormWrapper,
+  ContactInput,
+  ContactName,
+} from './ContactForm.styled';
 
 export class ContactForm extends Component {
   state = {
@@ -24,10 +30,10 @@ export class ContactForm extends Component {
     // console.log('NAME', this.state.name);
     // console.log('NUMBER', this.state.number);
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name">
+      <ContactFormWrapper onSubmit={this.handleSubmit}>
+        <ContactName htmlFor="name">
           Name
-          <input
+          <ContactInput
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -36,11 +42,11 @@ export class ContactForm extends Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-        </label>
+        </ContactName>
 
-        <label htmlFor="number">
+        <ContactName htmlFor="number">
           Number
-          <input
+          <ContactInput
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -49,9 +55,9 @@ export class ContactForm extends Component {
             onChange={this.handleChange}
             value={this.state.number}
           />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
+        </ContactName>
+        <AddContactButton type="submit">Add contact</AddContactButton>
+      </ContactFormWrapper>
     );
   }
 }
