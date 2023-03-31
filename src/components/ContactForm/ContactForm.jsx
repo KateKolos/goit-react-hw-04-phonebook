@@ -27,8 +27,6 @@ export class ContactForm extends Component {
   };
 
   render() {
-    // console.log('NAME', this.state.name);
-    // console.log('NUMBER', this.state.number);
     return (
       <ContactFormWrapper onSubmit={this.handleSubmit}>
         <ContactName htmlFor="name">
