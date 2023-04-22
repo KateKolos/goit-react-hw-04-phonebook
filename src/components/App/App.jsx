@@ -23,9 +23,10 @@ export default function App() {
   const addContact = ({ name, number }) => {
     const contact = { name, number, id: nanoid() };
 
-    contacts.find(item => name === item.name)
+    // return
+    contacts.find(contact => name === contact.name)
       ? alert(`${name} is already in contacts.`)
-      : setContacts([...contacts, contact]);
+      : setContacts([...contacts, contact]).resetForm();
   };
 
   const getFilteredContacts = () => {
