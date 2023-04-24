@@ -6,15 +6,10 @@ import { ContactList } from '../ContactList/Contactlist';
 import { PhonebookWrapper } from './App.styled';
 
 export default function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) ?? []
+  );
   const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    const localStorageContacts = localStorage.getItem('contacts');
-    if (localStorageContacts) {
-      setContacts(JSON.parse(localStorageContacts));
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -23,10 +18,9 @@ export default function App() {
   const addContact = ({ name, number }) => {
     const contact = { name, number, id: nanoid() };
 
-    // return
-    contacts.find(contact => name === contact.name)
+    return contacts.find(contact => name === contact.name)
       ? alert(`${name} is already in contacts.`)
-      : setContacts([...contacts, contact]).resetForm();
+      : setContacts([...contacts, contact]);
   };
 
   const getFilteredContacts = () => {
